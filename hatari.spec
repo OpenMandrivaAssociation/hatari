@@ -8,7 +8,7 @@ Group:		Emulators
 URL:		http://hatari.berlios.de/
 Source0:	http://prdownload.berlios.de/%{name}/%{name}-%{version}.tar.bz2
 #Patch0:		hatari-1.4.0-desktopfile-install.patch
-BuildRequires:	SDL-devel
+BuildRequires:	cmake
 BuildRequires:	SDL-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libpng-devel
