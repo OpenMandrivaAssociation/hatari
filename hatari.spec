@@ -15,6 +15,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	portaudio-devel
 BuildRequires:	libx11-devel
 BuildRequires:	readline-devel
+BuildRequires:	desktop-file-utils
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
