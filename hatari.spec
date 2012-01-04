@@ -1,5 +1,5 @@
 Name:			hatari
-Version:		1.5.0
+Version:		1.6.0
 Release:		%mkrel 1
 
 Summary:	An Atari ST emulator
@@ -7,7 +7,6 @@ License:	GPLv2+
 Group:		Emulators
 URL:		http://hatari.berlios.de/
 Source0:	http://prdownload.berlios.de/%{name}/%{name}-%{version}.tar.bz2
-#Patch0:		hatari-1.4.0-desktopfile-install.patch
 BuildRequires:	cmake
 BuildRequires:	SDL-devel
 BuildRequires:	zlib-devel
@@ -29,7 +28,6 @@ possible so that it is able to run most of the old ST games and demos.
 
 %prep
 %setup -q
-#patch0 -p1
 
 %build
 ./configure --prefix=%{_prefix}
@@ -37,7 +35,6 @@ possible so that it is able to run most of the old ST games and demos.
 
 %install
 rm -rf %{buildroot}
-#makeinstall DESTDIR=%{buildroot}
 %makeinstall_std
 
 #fr man pages
@@ -54,6 +51,9 @@ desktop-file-install --vendor="" \
   --dir %{buildroot}%{_datadir}/applications/ \
   %{buildroot}%{_datadir}/applications/*
 
+%clean
+rm -rf %{buildroot}
+
 %files
 %defattr(-,root,root)
 %doc readme.txt doc/changelog.txt doc/fr/clavier-exemple.txt
@@ -67,15 +67,4 @@ desktop-file-install --vendor="" \
 %{_datadir}/%{name}
 %{_iconsdir}/hicolor/32x32/apps/%{name}-icon.png
 %{_datadir}/applications/%{name}ui.desktop
-
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post
-%{update_menus}
-
-%postun
-%{clean_menus}
-%endif
 
