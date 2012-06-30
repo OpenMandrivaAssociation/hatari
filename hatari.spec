@@ -1,5 +1,5 @@
 Name:			hatari
-Version:		1.6.1
+Version:		1.6.2
 Release:		%mkrel 1
 
 Summary:	An Atari ST emulator
