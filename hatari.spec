@@ -68,3 +68,62 @@ rm -rf %{buildroot}
 %{_iconsdir}/hicolor/32x32/apps/%{name}-icon.png
 %{_datadir}/applications/%{name}ui.desktop
 
+
+
+%changelog
+* Sat Jun 30 2012 Zombie Ryushu <ryushu@mandriva.org> 1.6.2-1mdv2011.0
++ Revision: 807608
+- Upgrade to 1.6.2
+
+* Sun Jan 15 2012 Andrey Bondrov <abondrov@mandriva.org> 1.6.1-1
++ Revision: 760880
+- New version 1.6.1
+
+* Wed Jan 04 2012 Andrey Bondrov <abondrov@mandriva.org> 1.6.0-1
++ Revision: 753983
+- New version 1.6.0
+
+* Fri Jul 29 2011 Andrey Bondrov <abondrov@mandriva.org> 1.5.0-1
++ Revision: 692294
+- Fix BuildRequires
+- Fix BuildRequires
+- imported package hatari
+
+
+* Sun Jul 24 2011 Andrey Bondrov <bondrov@math.dvgu.ru> 1.5.0-1mdv2011.0
+- 1.5.0
+- Import from PLF
+- Remove PLF reference
+
+* Thu Dec  2 2010 Guillaume Bedot <littletux@zarb.org> 1.4.0-1plf2011.0
+- 1.4.0
+- fix build reqs, update patch, files list...
+
+* Sat Sep  5 2009 Guillaume Bedot <littletux@zarb.org> 1.3.1-1plf2010.0
+- Release 1.3.1
+- Drop string-literal patch
+- Add hatariui, new menu item and more doc and tools
+
+* Mon Jan 26 2009 Guillaume Bedot <littletux@zarb.org> 1.2.0-1plf2009.1
+- Release 1.2.0
+- Fix menu tip
+- Add zip2st
+
+* Tue Jan  6 2009 Guillaume Bedot <littletux@zarb.org> 1.1.0-2plf2009.1
+- Fix build for cooker
+
+* Tue Jan  6 2009 Guillaume Bedot <littletux@zarb.org> 1.1.0-1plf2009.1
+- New release 1.1.0
+
+* Thu Apr 17 2008 Guillaume Bedot <littletux@zarb.org> 1.0.1-1plf2008.1
+- 1.0.1
+
+* Wed Mar 19 2008 Guillaume Bedot <littletux@zarb.org> 1.0.0-2plf2008.1
+- fix 2007.1 build
+
+* Tue Mar 18 2008 Guillaume Bedot <littletux@zarb.org> 1.0.0-1plf2008.1
+- Release 1.0.0, build fixes, icon comment
+
+* Mon May 14 2007 Guillaume Bedot <littletux@zarb.org> 0.95-1plf2008.0
+- First PLF package
+
