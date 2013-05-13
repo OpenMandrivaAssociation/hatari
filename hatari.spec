@@ -1,6 +1,6 @@
 Name:			hatari
 Version:		1.6.2
-Release:		%mkrel 1
+Release:		2
 
 Summary:	An Atari ST emulator
 License:	GPLv2+
@@ -15,7 +15,6 @@ BuildRequires:	portaudio-devel
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	readline-devel
 BuildRequires:	desktop-file-utils
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Hatari is an Atari ST and STE emulator.
