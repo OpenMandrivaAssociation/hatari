@@ -10,9 +10,9 @@ Source0:	http://prdownload.berlios.de/%{name}/%{name}-%{version}.tar.bz2
 BuildRequires:	cmake
 BuildRequires:	SDL-devel
 BuildRequires:	zlib-devel
-BuildRequires:	libpng-devel
+BuildRequires:	pkgconfig(libpng)
 BuildRequires:	portaudio-devel
-BuildRequires:	libx11-devel
+BuildRequires:	pkgconfig(x11)
 BuildRequires:	readline-devel
 BuildRequires:	desktop-file-utils
 BuildRoot:	%{_tmppath}/%{name}-%{version}
