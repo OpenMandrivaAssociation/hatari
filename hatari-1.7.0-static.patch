@@ -1,0 +1,60 @@
+diff -urN hatari-1.7.0/src/CMakeLists.txt hatari-1.7.0-patched/src/CMakeLists.txt
+--- hatari-1.7.0/src/CMakeLists.txt	2013-06-24 23:02:32.000000000 +1100
++++ hatari-1.7.0-patched/src/CMakeLists.txt	2013-07-01 00:46:10.468883270 +1100
+@@ -12,7 +12,7 @@
+ 	video.c wavFormat.c xbios.c ymFormat.c)
+ 
+ # Disk image code is shared with the hmsa tool, so we put it into a library:
+-add_library(Floppy createBlankImage.c dim.c msa.c st.c zip.c)
++add_library(Floppy STATIC createBlankImage.c dim.c msa.c st.c zip.c)
+ 
+ # When building for OSX, define specific sources for gui and ressources
+ if(ENABLE_OSX_BUNDLE)
+diff -urN hatari-1.7.0/src/debug/CMakeLists.txt hatari-1.7.0-patched/src/debug/CMakeLists.txt
+--- hatari-1.7.0/src/debug/CMakeLists.txt	2013-06-24 23:02:32.000000000 +1100
++++ hatari-1.7.0-patched/src/debug/CMakeLists.txt	2013-07-01 00:46:18.026009366 +1100
+@@ -7,7 +7,7 @@
+ 	set(DSPDBG_C debugdsp.c)
+ endif(ENABLE_DSP_EMU)
+ 
+-add_library(Debug
++add_library(Debug STATIC
+ 	    log.c debugui.c breakcond.c debugcpu.c debugInfo.c
+ 	    ${DSPDBG_C} evaluate.c history.c symbols.c
+ 	    profile.c profilecpu.c profiledsp.c
+diff -urN hatari-1.7.0/src/falcon/CMakeLists.txt hatari-1.7.0-patched/src/falcon/CMakeLists.txt
+--- hatari-1.7.0/src/falcon/CMakeLists.txt	2013-06-24 23:02:32.000000000 +1100
++++ hatari-1.7.0-patched/src/falcon/CMakeLists.txt	2013-07-01 00:46:25.551135278 +1100
+@@ -7,7 +7,7 @@
+ 	set(DSP_SOURCES dsp_core.c dsp_cpu.c dsp_disasm.c)
+ endif(ENABLE_DSP_EMU)
+ 
+-add_library(Falcon
++add_library(Falcon STATIC
+ 	crossbar.c dsp.c ${DSP_SOURCES}
+ 	hostscreen.c microphone.c nvram.c videl.c
+ 	)
+diff -urN hatari-1.7.0/src/gui-sdl/CMakeLists.txt hatari-1.7.0-patched/src/gui-sdl/CMakeLists.txt
+--- hatari-1.7.0/src/gui-sdl/CMakeLists.txt	2013-06-24 23:02:32.000000000 +1100
++++ hatari-1.7.0-patched/src/gui-sdl/CMakeLists.txt	2013-07-01 00:46:32.618253407 +1100
+@@ -5,7 +5,7 @@
+ 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-write-strings")
+ endif(CMAKE_COMPILER_IS_GNUCC)
+ 
+-add_library(GuiSdl
++add_library(GuiSdl STATIC
+ 	dlgAbout.c dlgAlert.c dlgDevice.c dlgFileSelect.c dlgFloppy.c
+ 	dlgHardDisk.c dlgJoystick.c dlgKeyboard.c dlgMain.c dlgMemory.c
+ 	dlgNewDisk.c dlgRom.c dlgScreen.c dlgSound.c dlgSystem.c
+diff -urN hatari-1.7.0/src/uae-cpu/CMakeLists.txt hatari-1.7.0-patched/src/uae-cpu/CMakeLists.txt
+--- hatari-1.7.0/src/uae-cpu/CMakeLists.txt	2013-06-24 23:02:33.000000000 +1100
++++ hatari-1.7.0-patched/src/uae-cpu/CMakeLists.txt	2013-07-01 00:46:39.755372214 +1100
+@@ -52,7 +52,7 @@
+ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable -Wno-unused-label")
+ endif(CMAKE_COMPILER_IS_GNUCC)
+ 
+-add_library(UaeCpu
++add_library(UaeCpu STATIC
+ 	cpudefs.c cpuemu.c cpustbl.c
+ 	hatari-glue.c memory.c newcpu.c readcpu.c fpp.c
+ 	)
