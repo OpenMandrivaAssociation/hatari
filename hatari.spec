@@ -1,11 +1,11 @@
 Summary:	An Atari ST emulator
 Name:		hatari
-Version:	1.7.0
+Version:	1.8.0
 Release:	1
 License:	GPLv2+
 Group:		Emulators
-URL:		http://hatari.berlios.de/
-Source0:	http://prdownload.berlios.de/%{name}/%{name}-%{version}.tar.bz2
+URL:		http://hatari.tuxfamily.org/
+Source0:	http://download.tuxfamily.org/%{name}/%{version}/%{name}-%{version}.tar.bz2
 Patch0:		hatari-1.7.0-static.patch
 BuildRequires:	cmake
 BuildRequires:	pkgconfig(libpng)
@@ -28,6 +28,7 @@ possible so that it is able to run most of the old ST games and demos.
 %prep
 %setup -q
 %patch0 -p1
+find . -name "*.py" |xargs 2to3 -w
 
 %build
 %cmake
