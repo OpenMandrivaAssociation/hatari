@@ -1,7 +1,7 @@
 Summary:	An Atari ST emulator
 Name:		hatari
 Version:	1.8.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Emulators
 URL:		http://hatari.tuxfamily.org/
