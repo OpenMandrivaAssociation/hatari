@@ -1,7 +1,7 @@
 Summary:	An Atari ST emulator
 Name:		hatari
-Version:	1.8.0
-Release:	2
+Version:	1.9.0
+Release:	1
 License:	GPLv2+
 Group:		Emulators
 URL:		http://hatari.tuxfamily.org/
@@ -27,7 +27,7 @@ possible so that it is able to run most of the old ST games and demos.
 
 %prep
 %setup -q
-%patch0 -p1
+%apply_patches
 find . -name "*.py" |xargs 2to3 -w
 
 %build
@@ -61,7 +61,11 @@ desktop-file-install --vendor="" \
 %{_bindir}/gst2ascii
 %{_bindir}/zip2st
 %{_bindir}/atari-hd-image
+%{_bindir}/atari-convert-dir
 %{_datadir}/%{name}
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}ui.desktop
-%{_iconsdir}/hicolor/32x32/apps/%{name}-icon.png
+%{_datadir}/mime/packages/%{name}.*
+%{_iconsdir}/hicolor/*/apps/%{name}.*
+%{_iconsdir}/hicolor/*/mimetypes/application-x-st-disk-image.*
 %{_mandir}/man1/*.1*
