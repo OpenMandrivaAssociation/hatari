@@ -27,7 +27,7 @@ possible so that it is able to run most of the old ST games and demos.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 find . -name "*.py" |xargs 2to3 -w
 
 %build
