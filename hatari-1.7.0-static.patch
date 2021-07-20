@@ -1,16 +1,28 @@
---- hatari-1.9.0/src/CMakeLists.txt.0000~	2015-09-10 23:16:03.000000000 +0200
-+++ hatari-1.9.0/src/CMakeLists.txt	2016-10-08 01:18:25.465427420 +0200
+diff -up hatari-2.3.1/src/CMakeLists.txt.1~ hatari-2.3.1/src/CMakeLists.txt
+--- hatari-2.3.1/src/CMakeLists.txt.1~	2021-07-20 03:17:46.666253356 +0200
++++ hatari-2.3.1/src/CMakeLists.txt	2021-07-20 03:18:33.031312360 +0200
 @@ -12,7 +12,7 @@ set(SOURCES
- 	video.c wavFormat.c xbios.c ymFormat.c)
+ 	vdi.c inffile.c video.c wavFormat.c xbios.c ymFormat.c lilo.c)
  
  # Disk image code is shared with the hmsa tool, so we put it into a library:
 -add_library(Floppy createBlankImage.c dim.c msa.c st.c zip.c)
 +add_library(Floppy STATIC createBlankImage.c dim.c msa.c st.c zip.c)
  
- # When building for OSX, define specific sources for gui and ressources
+ # When building for macOS, define specific sources for gui and resources
  if(ENABLE_OSX_BUNDLE)
---- hatari-1.9.0/src/debug/CMakeLists.txt.0000~	2015-09-10 23:16:02.000000000 +0200
-+++ hatari-1.9.0/src/debug/CMakeLists.txt	2016-10-08 01:18:25.465427420 +0200
+diff -up hatari-2.3.1/src/cpu/CMakeLists.txt.1~ hatari-2.3.1/src/cpu/CMakeLists.txt
+--- hatari-2.3.1/src/cpu/CMakeLists.txt.1~	2021-07-20 03:19:37.365112647 +0200
++++ hatari-2.3.1/src/cpu/CMakeLists.txt	2021-07-20 03:19:43.417227842 +0200
+@@ -84,5 +84,5 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_CO
+ 		PROPERTIES COMPILE_FLAGS ${CPUMAIN_CFLAGS})
+ endif()
+ 
+-add_library(UaeCpu ${CPUEMU_SRCS} ${WINUAE_SRCS} custom.c events.c memory.c
++add_library(UaeCpu STATIC ${CPUEMU_SRCS} ${WINUAE_SRCS} custom.c events.c memory.c
+ 		   hatari-glue.c)
+diff -up hatari-2.3.1/src/debug/CMakeLists.txt.1~ hatari-2.3.1/src/debug/CMakeLists.txt
+--- hatari-2.3.1/src/debug/CMakeLists.txt.1~	2021-07-20 03:17:46.666253356 +0200
++++ hatari-2.3.1/src/debug/CMakeLists.txt	2021-07-20 03:18:42.413645842 +0200
 @@ -7,7 +7,7 @@ if(ENABLE_DSP_EMU)
  	set(DSPDBG_C debugdsp.c)
  endif(ENABLE_DSP_EMU)
@@ -18,38 +30,51 @@
 -add_library(Debug
 +add_library(Debug STATIC
  	    log.c debugui.c breakcond.c debugcpu.c debugInfo.c
- 	    ${DSPDBG_C} evaluate.c history.c symbols.c
+ 	    ${DSPDBG_C} evaluate.c history.c symbols.c vars.c
  	    profile.c profilecpu.c profiledsp.c
---- hatari-1.9.0/src/falcon/CMakeLists.txt.0000~	2015-09-10 23:16:03.000000000 +0200
-+++ hatari-1.9.0/src/falcon/CMakeLists.txt	2016-10-08 01:18:25.465427420 +0200
-@@ -7,7 +7,7 @@ if(ENABLE_DSP_EMU)
+diff -up hatari-2.3.1/src/falcon/CMakeLists.txt.1~ hatari-2.3.1/src/falcon/CMakeLists.txt
+--- hatari-2.3.1/src/falcon/CMakeLists.txt.1~	2021-07-20 03:17:46.666253356 +0200
++++ hatari-2.3.1/src/falcon/CMakeLists.txt	2021-07-20 03:18:51.923957727 +0200
+@@ -7,5 +7,5 @@ if(ENABLE_DSP_EMU)
  	set(DSP_SOURCES dsp_core.c dsp_cpu.c dsp_disasm.c)
  endif(ENABLE_DSP_EMU)
  
 -add_library(Falcon
 +add_library(Falcon STATIC
- 	crossbar.c dsp.c ${DSP_SOURCES}
- 	hostscreen.c microphone.c nvram.c videl.c
- 	)
---- hatari-1.9.0/src/gui-sdl/CMakeLists.txt.0000~	2016-10-08 01:18:25.465427420 +0200
-+++ hatari-1.9.0/src/gui-sdl/CMakeLists.txt	2016-10-08 01:18:33.153308063 +0200
-@@ -5,7 +5,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
+ 	    crossbar.c microphone.c nvram.c videl.c dsp.c ${DSP_SOURCES})
+diff -up hatari-2.3.1/src/gui-sdl/CMakeLists.txt.1~ hatari-2.3.1/src/gui-sdl/CMakeLists.txt
+--- hatari-2.3.1/src/gui-sdl/CMakeLists.txt.1~	2021-07-20 03:17:46.667253408 +0200
++++ hatari-2.3.1/src/gui-sdl/CMakeLists.txt	2021-07-20 03:19:03.078291175 +0200
+@@ -5,7 +5,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_CO
  	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-write-strings")
- endif(CMAKE_COMPILER_IS_GNUCC)
+ endif()
  
 -add_library(GuiSdl
 +add_library(GuiSdl STATIC
- 	dlgAbout.c dlgHalt.c dlgAlert.c dlgDevice.c dlgFileSelect.c dlgFloppy.c
- 	dlgHardDisk.c dlgJoystick.c dlgKeyboard.c dlgMain.c dlgMemory.c
- 	dlgNewDisk.c dlgRom.c dlgScreen.c dlgSound.c dlgSystem.c
---- hatari-1.9.0/src/uae-cpu/CMakeLists.txt.0000~	2015-09-10 23:16:03.000000000 +0200
-+++ hatari-1.9.0/src/uae-cpu/CMakeLists.txt	2016-10-08 01:18:25.465427420 +0200
-@@ -52,7 +52,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno
+ 	dlgAbout.c dlgAlert.c dlgCpu.c dlgDevice.c dlgFileSelect.c dlgFloppy.c
+ 	dlgHalt.c dlgHardDisk.c dlgJoystick.c dlgKeyboard.c dlgMain.c
+ 	dlgMemory.c dlgNewDisk.c dlgRom.c dlgScreen.c dlgSound.c dlgSystem.c
+diff -up hatari-2.3.1/src/uae-cpu/CMakeLists.txt.1~ hatari-2.3.1/src/uae-cpu/CMakeLists.txt
+--- hatari-2.3.1/src/uae-cpu/CMakeLists.txt.1~	2021-07-20 03:17:46.667253408 +0200
++++ hatari-2.3.1/src/uae-cpu/CMakeLists.txt	2021-07-20 03:19:19.289716490 +0200
+@@ -49,7 +49,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno
  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable -Wno-unused-label")
- endif(CMAKE_COMPILER_IS_GNUCC)
+ endif()
  
 -add_library(UaeCpu
 +add_library(UaeCpu STATIC
  	cpudefs.c cpuemu.c cpustbl.c
  	hatari-glue.c memory.c newcpu.c readcpu.c fpp.c
  	)
+diff -up hatari-2.3.1/tests/debugger/CMakeLists.txt.1~ hatari-2.3.1/tests/debugger/CMakeLists.txt
+--- hatari-2.3.1/tests/debugger/CMakeLists.txt.1~	2021-07-20 03:19:51.564369662 +0200
++++ hatari-2.3.1/tests/debugger/CMakeLists.txt	2021-07-20 03:19:58.255475074 +0200
+@@ -11,7 +11,7 @@ include_directories(${CMAKE_BINARY_DIR}
+ 		    ${CMAKE_SOURCE_DIR}/src/debug ${CMAKE_SOURCE_DIR}/src/falcon
+ 		    ${CMAKE_SOURCE_DIR}/src/debug ${SDL_INCLUDE_DIR} ${CPUDIR})
+ 
+-add_library(DebuggerTestLib test-dummies.c  ${CMAKE_SOURCE_DIR}/src/str.c
++add_library(DebuggerTestLib STATIC test-dummies.c  ${CMAKE_SOURCE_DIR}/src/str.c
+ 	    ${CMAKE_SOURCE_DIR}/src/debug/breakcond.c
+ 	    ${CMAKE_SOURCE_DIR}/src/debug/debugcpu.c
+ 	    ${CMAKE_SOURCE_DIR}/src/debug/history.c

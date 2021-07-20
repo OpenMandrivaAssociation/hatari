@@ -1,6 +1,6 @@
 Summary:	An Atari ST emulator
 Name:		hatari
-Version:	1.9.0
+Version:	2.3.1
 Release:	1
 License:	GPLv2+
 Group:		Emulators
@@ -13,6 +13,7 @@ BuildRequires:	pkgconfig(portaudio-2.0)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(udev)
 BuildRequires:	readline-devel
 BuildRequires:	desktop-file-utils
 
@@ -28,7 +29,7 @@ possible so that it is able to run most of the old ST games and demos.
 %prep
 %setup -q
 %autopatch -p1
-find . -name "*.py" |xargs 2to3 -w
+#find . -name "*.py" |xargs 2to3 -w
 
 %build
 %cmake
@@ -56,6 +57,7 @@ desktop-file-install --vendor="" \
 %files -f %{name}.lang
 %doc readme.txt doc/changelog.txt doc/fr/clavier-exemple.txt
 %doc tools/hmsa/readme-hmsa.txt
+%doc %{_docdir}/%{name}
 %{_bindir}/%{name}*
 %{_bindir}/hmsa
 %{_bindir}/gst2ascii
@@ -68,4 +70,7 @@ desktop-file-install --vendor="" \
 %{_datadir}/mime/packages/%{name}.*
 %{_iconsdir}/hicolor/*/apps/%{name}.*
 %{_iconsdir}/hicolor/*/mimetypes/application-x-st-disk-image.*
+%{_iconsdir}/hicolor/*/mimetypes/application-vnd.fastcopy-disk-image.*
+%{_iconsdir}/hicolor/*/mimetypes/application-vnd.msa-disk-image.*
+%{_iconsdir}/hicolor/*/mimetypes/application-x-stx-disk-image.*
 %{_mandir}/man1/*.1*
