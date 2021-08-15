@@ -1,13 +1,16 @@
 Summary:	An Atari ST emulator
 Name:		hatari
 Version:	2.3.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Emulators
 URL:		http://hatari.tuxfamily.org/
 Source0:	http://download.tuxfamily.org/%{name}/%{version}/%{name}-%{version}.tar.bz2
+# Hatari comes with an outdated version of emutos (1.0) -- let's replace it
+%define emutos_version 1.1.1
+Source1:	https://netcologne.dl.sourceforge.net/project/emutos/emutos/%{emutos_version}/emutos-512k-%{emutos_version}.zip
 Patch0:		hatari-1.7.0-static.patch
-BuildRequires:	cmake
+BuildRequires:	cmake ninja
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(portaudio-2.0)
 BuildRequires:	pkgconfig(sdl)
@@ -27,16 +30,18 @@ applications, Hatari tries to emulate the hardware of a ST as close as
 possible so that it is able to run most of the old ST games and demos.
 
 %prep
-%setup -q
-%autopatch -p1
-#find . -name "*.py" |xargs 2to3 -w
+%autosetup -p1 -a 1
+# Update emutos
+cp -f emutos-512k-%{emutos_version}/etos512us.img src/tos.img
+
+# Now stuff should be sane
+%cmake -G Ninja
 
 %build
-%cmake
-%make
+%ninja_build -C build
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 
 #fr man pages
 install -d -m 755 %{buildroot}/%{_mandir}/fr/man1
