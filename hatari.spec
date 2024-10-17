@@ -4,7 +4,7 @@ Version:	2.3.1
 Release:	2
 License:	GPLv2+
 Group:		Emulators
-URL:		http://hatari.tuxfamily.org/
+URL:		https://hatari.tuxfamily.org/
 Source0:	http://download.tuxfamily.org/%{name}/%{version}/%{name}-%{version}.tar.bz2
 # Hatari comes with an outdated version of emutos (1.0) -- let's replace it
 %define emutos_version 1.1.1
