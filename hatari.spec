@@ -62,8 +62,7 @@ desktop-file-install --vendor="" \
 	%{buildroot}%{_datadir}/applications/*
 
 %files
-%doc readme.txt doc/changelog.txt doc/fr/clavier-exemple.txt
-%doc %{_docdir}/%{name}
+%{_docdir}/%{name}
 %{_bindir}/hatari
 %{_bindir}/hatariui
 %{_bindir}/hatari-prg-args
