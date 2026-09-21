@@ -1,0 +1,66 @@
+diff -ruN a/share/applications/hatari.desktop b/share/applications/hatari.desktop
+--- hatari-2.6.1/share/applications/hatari.desktop	2025-08-15 16:09:48.000000000 +0200
++++ hatari-2.6.1/share/applications/hatari.desktop	2026-09-21 03:16:45.729687239 +0200
+@@ -9,3 +9,5 @@
+ Categories=Game;Emulator;
+ Keywords=Emulator;Atari;Atari ST;Atari Falcon;
+ Terminal=false
++StartupWMClass=hatari
++StartupNotify=true
+diff -ruN a/src/main.c b/src/main.c
+--- hatari-2.6.1/src/main.c	2025-08-15 16:09:48.000000000 +0200
++++ hatari-2.6.1/src/main.c	2026-09-21 03:17:20.982449762 +0200
+@@ -786,7 +786,17 @@
+ 	   will be initialized later (failure not fatal). */
+ 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+ 	{
+-		Main_ErrorExit("Could not initialize the SDL library:", SDL_GetError(), -1);
++		const char *videodriver = getenv("SDL_VIDEODRIVER");
++		if (videodriver && strcmp(videodriver, "wayland") == 0)
++		{
++			Log_Printf(LOG_INFO, "Wayland video init failed (%s), falling back to X11\n",
++			           SDL_GetError());
++			setenv("SDL_VIDEODRIVER", "x11", 1);
++			if (SDL_Init(SDL_INIT_VIDEO) < 0)
++				Main_ErrorExit("Could not initialize the SDL library:", SDL_GetError(), -1);
++		}
++		else
++			Main_ErrorExit("Could not initialize the SDL library:", SDL_GetError(), -1);
+ 	}
+ 
+ 	if ( IPF_Init() != true )
+@@ -1059,6 +1069,13 @@
+ 	/* Needed on maemo but useful also with normal X11 window managers for
+ 	 * window grouping when you have multiple Hatari SDL windows open */
+ 	setenv("SDL_VIDEO_X11_WMCLASS", "hatari", 1);
++	/* Prefer native Wayland so KDE does not leave an unfocused XWayland
++	 * window behind the terminal. hatariui embedding still needs X11. */
++	if (!getenv("SDL_VIDEODRIVER") && getenv("WAYLAND_DISPLAY")
++	    && !getenv("PARENT_WIN_ID"))
++		setenv("SDL_VIDEODRIVER", "wayland", 0);
++	if (!getenv("SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR"))
++		setenv("SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR", "0", 0);
+ #endif
+ 
+ 	/* Init emulator system */
+diff -ruN a/src/screen.c b/src/screen.c
+--- hatari-2.6.1/src/screen.c	2025-08-15 16:09:48.000000000 +0200
++++ hatari-2.6.1/src/screen.c	2026-09-21 03:16:45.689657513 +0200
+@@ -478,14 +478,15 @@
+ 	}
+ 	else
+ 	{
+-		sdlWindow = SDL_CreateWindow("Hatari", SDL_WINDOWPOS_UNDEFINED,
+-		                             SDL_WINDOWPOS_UNDEFINED,
++		sdlWindow = SDL_CreateWindow("Hatari", SDL_WINDOWPOS_CENTERED,
++		                             SDL_WINDOWPOS_CENTERED,
+ 		                             win_width, win_height, sdlVideoFlags);
+ 		if (!sdlWindow)
+ 		{
+ 			fprintf(stderr, "%dx%d window\n", win_width, win_height);
+ 			Main_ErrorExit("Failed to create window:", SDL_GetError(), -1);
+ 		}
++		SDL_RaiseWindow(sdlWindow);
+ 	}
+ 	if (bUseSdlRenderer)
+ 	{
