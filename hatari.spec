@@ -1,12 +1,13 @@
 Summary:	An Atari ST/STE/TT/Falcon emulator
 Name:		hatari
 Version:	2.6.1
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Emulators
 URL:		https://www.hatari-emu.org/
 Source0:	https://framagit.org/hatari/releases/-/raw/main/v%{version}/%{name}-%{version}.tar.bz2
 Patch0:		hatari-2.6.1-wayland-focus.patch
+Patch1:		hatari-2.6.1-mime.patch
 BuildRequires:	cmake ninja
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(sdl2)

@@ -1,0 +1,34 @@
+--- hatari-2.6.1/share/applications/hatari.desktop
++++ hatari-2.6.1/share/applications/hatari.desktop
+@@ -5,7 +5,7 @@
+ Comment[fr]=Emulateur pour les ordinateurs Atari ST/STE/TT/Falcon
+ Exec=hatari %f
+ Icon=hatari
+-MimeType=application/x-st-disk-image;application/vnd.msa-disk-image;application/vnd.fastcopy-disk-image;application/x-stx-disk-image;
++MimeType=application/x-st-disk-image;application/vnd.msa-disk-image;application/vnd.fastcopy-disk-image;application/x-stx-disk-image;application/x-tos-executable;application/x-ipf-disk-image;inode/directory;
+ Categories=Game;Emulator;
+ Keywords=Emulator;Atari;Atari ST;Atari Falcon;
+ Terminal=false
+--- hatari-2.6.1/share/mime/packages/hatari.xml
++++ hatari-2.6.1/share/mime/packages/hatari.xml
+@@ -29,4 +29,20 @@
+ 			<match type="big32" offset="0" value="0x52535900"/>
+ 		</magic>
+ 	</mime-type>
++	<mime-type type="application/x-tos-executable">
++		<sub-class-of type="application/octet-stream"/>
++		<comment>Atari TOS executable</comment>
++		<glob pattern="*.tos"/>
++		<glob pattern="*.prg"/>
++		<glob pattern="*.ttp"/>
++		<magic priority="80">
++			<match type="big16" offset="0" value="0x601A"/>
++		</magic>
++	</mime-type>
++	<mime-type type="application/x-ipf-disk-image">
++		<sub-class-of type="application/octet-stream"/>
++		<comment>IPF floppy image</comment>
++		<glob pattern="*.ipf"/>
++		<glob pattern="*.ctr"/>
++	</mime-type>
+ </mime-info>
