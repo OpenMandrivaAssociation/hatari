@@ -1,7 +1,7 @@
 Summary:	An Atari ST/STE/TT/Falcon emulator
 Name:		hatari
 Version:	2.6.1
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Emulators
 URL:		https://www.hatari-emu.org/
@@ -14,6 +14,7 @@ BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(udev)
 BuildRequires:	pkgconfig(capstone)
+BuildRequires:	pkgconfig(capsimage)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	readline-devel
 BuildRequires:	desktop-file-utils
